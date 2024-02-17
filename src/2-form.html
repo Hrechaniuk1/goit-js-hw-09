@@ -9,15 +9,20 @@
   </head>
   <body>
     <form class="feedback-form" autocomplete="off">
-      <label>
-        Email
-        <input type="email" name="email" autofocus />
+      <label class="mail-label">
+        <span>Email</span>
+        <input class="mail-input" type="email" name="email" autofocus />
       </label>
-      <label>
-        Message
-        <textarea name="message" rows="8"></textarea>
+      <label class="message-label">
+        <span>Message</span>
+        <textarea
+          class="message-input"
+          name="message"
+          rows="8"
+          placeholder="Type area"
+        ></textarea>
       </label>
-      <button type="submit">Submit</button>
+      <button class="form-btn" type="submit">Submit</button>
     </form>
   </body>
 </html>
