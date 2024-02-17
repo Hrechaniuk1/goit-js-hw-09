@@ -2,13 +2,8 @@
 
 const form = document.querySelector(".feedback-form")
 
-const infoForLocal = {
-    email: "",
-    message: "",
-}
 
 const infoFromLocal = JSON.parse(localStorage.getItem("feedback-form-state"))
-console.log(infoFromLocal)
 
 form.elements.email.value = infoFromLocal ? infoFromLocal.email : ""
 form.elements.message.value = infoFromLocal ? infoFromLocal.message : ""
@@ -18,6 +13,10 @@ form.elements.message.value = infoFromLocal ? infoFromLocal.message : ""
 form.addEventListener("input", doInputThings)
 
 function doInputThings(event) {
+const infoForLocal = {
+    email: infoFromLocal.email || "",
+    message: infoFromLocal.message || "",
+}
 
     if (event.target === form.elements.email) {
         infoForLocal.email = event.target.value.trim()
@@ -38,8 +37,6 @@ function doSubmit(event) {
     if ((form.elements.message.value.length > 0) && (form.elements.email.value.length > 0)) {
         console.log({ email: form.elements.email.value, message: form.elements.message.value })
         localStorage.removeItem("feedback-form-state")
-        infoForLocal.email = ""
-        infoForLocal.message = ""
         form.reset()
     } else {
         alert("What about both? Email and message")
