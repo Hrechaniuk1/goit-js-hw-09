@@ -7,8 +7,11 @@ const infoForLocal = {
     message: "",
 }
 
-form.elements.email.value = JSON.parse(localStorage.getItem("feedback-form-state")).email
-form.elements.message.value = JSON.parse(localStorage.getItem("feedback-form-state")).message
+const infoFromLocal = JSON.parse(localStorage.getItem("feedback-form-state"))
+console.log(infoFromLocal)
+
+form.elements.email.value = infoFromLocal ? infoFromLocal.email : ""
+form.elements.message.value = infoFromLocal ? infoFromLocal.message : ""
 
 // input listener
 
@@ -25,7 +28,6 @@ function doInputThings(event) {
     }
 
 }
-console.log(localStorage.getItem("feedback-form-state"))
 
 // submit listener
 
@@ -44,6 +46,6 @@ function doSubmit(event) {
     }
 }
 
-console.log(localStorage.getItem("feedback-form-state"))
+
 
 
