@@ -1,22 +1,27 @@
 // const { createLogger } = require("vite")
 
+console.log("Сподіваюсь я вірно зрозумів запропоновані покращення: якщо ні, можна трошки детальніше, там де не зрозумів")
+
 const form = document.querySelector(".feedback-form")
 
 
-const infoFromLocal = JSON.parse(localStorage.getItem("feedback-form-state"))
+function isLocalHasData() {
+    const storageLocal = localStorage.getItem("feedback-form-state") ? JSON.parse(localStorage.getItem("feedback-form-state")) : "";
+    return storageLocal
+}
 
-form.elements.email.value = infoFromLocal ? infoFromLocal.email : ""
-form.elements.message.value = infoFromLocal ? infoFromLocal.message : ""
+form.elements.email.value = isLocalHasData()?.email || ""
+form.elements.message.value = isLocalHasData()?.message || ""
 
 // input listener
 
 form.addEventListener("input", doInputThings)
 
 function doInputThings(event) {
-const infoForLocal = {
-    email: infoFromLocal.email || "",
-    message: infoFromLocal.message || "",
-}
+    const infoForLocal = {
+        email: form.elements.email.value,
+        message: form.elements.message.value,
+    }
 
     if (event.target === form.elements.email) {
         infoForLocal.email = event.target.value.trim()
@@ -27,6 +32,7 @@ const infoForLocal = {
     }
 
 }
+console.log(`Це дані з локального сховища за запитом feedback-form-state ${localStorage.getItem("feedback-form-state")}`)
 
 // submit listener
 
@@ -34,7 +40,7 @@ form.addEventListener("submit", doSubmit)
 
 function doSubmit(event) {
     event.preventDefault()
-    if ((form.elements.message.value.length > 0) && (form.elements.email.value.length > 0)) {
+    if (form.elements.message.value && form.elements.email.value) {
         console.log({ email: form.elements.email.value, message: form.elements.message.value })
         localStorage.removeItem("feedback-form-state")
         form.reset()
